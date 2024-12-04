@@ -13,7 +13,7 @@
 
 def difference_list():
     rawdata: str
-    with open("input", "r") as f:
+    with open("./inputs/input", "r") as f:
         rawdata = f.readlines()
 
     left_list, right_list = [], []
