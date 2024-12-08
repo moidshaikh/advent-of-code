@@ -122,16 +122,92 @@ def problem1() -> int:
     return result
 
 
+def find_xmas_part2(data: str) -> int:
+    """
+    Find and count X-shaped patterns in a grid where each diagonal spells 'MAS' or 'SAM'.
+    The function looks for X patterns where:
+    - The center must be 'A'
+    - Each diagonal must spell either 'MAS' or 'SAM' (forwards or backwards)
+    - The X pattern shares a central 'A'
+
+    Example valid pattern:
+        M.S
+        .A.
+        M.S
+
+    Args:
+        data (str): Input grid as a multi-line string where each line represents a row
+                   and each character represents a position in the grid
+
+    Returns:
+        int: Number of valid X-MAS patterns found in the grid
+
+    Time Complexity: O(RC) where R is number of rows and C is number of columns
+    Space Complexity: O(RC) for storing input and solution grids
+
+    Note:
+        The function also prints a solution grid showing the valid X-MAS patterns found,
+        with non-pattern positions marked as '.'
+    """
+    # Convert the input into a grid
+    grid = [list(line.strip()) for line in data.split("\n")]
+    rows, cols = len(grid), len(grid[0])
+
+    # Create solution grid
+    solution = [["." for _ in range(cols)] for _ in range(rows)]
+
+    def is_valid_mas(a, b, c):
+        return (a + b + c == "MAS") or (a + b + c == "SAM")
+
+    def check_pattern(r, c):
+        # Check bounds first
+        if not (0 < r < rows - 1 and 0 < c < cols - 1):
+            return False
+
+        # Center must be 'A'
+        if grid[r][c] != "A":
+            return False
+
+        # Check both diagonals
+        diagonal1 = grid[r - 1][c - 1] + grid[r][c] + grid[r + 1][c + 1]
+        diagonal2 = grid[r - 1][c + 1] + grid[r][c] + grid[r + 1][c - 1]
+
+        # If valid, mark solution grid
+        if is_valid_mas(*diagonal1) and is_valid_mas(*diagonal2):
+            solution[r][c] = grid[r][c]  # Center A
+            solution[r - 1][c - 1] = grid[r - 1][c - 1]  # Top-left
+            solution[r - 1][c + 1] = grid[r - 1][c + 1]  # Top-right
+            solution[r + 1][c - 1] = grid[r + 1][c - 1]  # Bottom-left
+            solution[r + 1][c + 1] = grid[r + 1][c + 1]  # Bottom-right
+            return True
+
+        return False
+
+    # Count valid patterns
+    count = sum(
+        check_pattern(r, c) for r in range(1, rows - 1) for c in range(1, cols - 1)
+    )
+
+    if testing:  # Print solution grid
+        print("SOLUTION:\n")
+        print("\n".join("".join(row) for row in solution))
+        print()
+
+    return count
+
+
 def problem2():
     logger.info("Starting problem 2")
     data: str = read_input()
-    return 0
+    print(f"{data=}")
+    result: int = find_xmas_part2(data)
+    return result
 
 
 def main():
     logger.info("Starting program")
     try:
-        res: int = problem1()
+        res: int = problem2()
         logger.info(f"Final result: {res}")
     except Exception as e:
         logger.error(f"An error occurred: {str(e)}", exc_info=True)
