@@ -1,8 +1,8 @@
 import logging
 import os
-import re
 from collections import defaultdict, deque
 from functools import reduce
+from itertools import product
 from typing import Dict, List, Literal, Set, Tuple
 
 # Configure logging
@@ -64,9 +64,6 @@ def parse(line: str) -> Dict:
     return [res, operands]
 
 
-from itertools import product
-
-
 def solution1(data: str) -> int:
     # Convert input to grid
     lines = [parse(x) for x in data.strip().split("\n")]
@@ -75,6 +72,7 @@ def solution1(data: str) -> int:
     calibration_result: int = 0
     for prod, nums in lines:
         ops = list(product(operands, repeat=len(nums) - 1))
+        print(ops)
 
         for operator_set in ops:
             res = nums[0]
@@ -87,26 +85,36 @@ def solution1(data: str) -> int:
                 calibration_result += res
                 print(f"FOUND correct for: {prod}, {nums}\n{calibration_result}")
                 break
-                # found that values match
-
-    # for
-
-    # evaluate = []
-    # for exp in expr:
-    #     res=
-    #     for op in range(len(exp)):
-    #         if op == "+":
-    #             ...
-    #         elif op == "*":
-    #             ...
-    #         else:
-    #             raise "Invalid operand"
     return calibration_result
 
 
 def solution2(input_text: str) -> int:
     # Parse input
-    return -1
+    # Here we have a new operator concatenate, "||"
+    # eg. 15 || 6 = 156
+    # previous 3 are valid, check for fourth operator
+
+    lines = [parse(x) for x in input_text.strip().split("\n")]
+    print(lines)  # [{12: [3,4]}, ...]
+    operands: List[str] = ["+", "*", "||"]
+    calibration_result: int = 0
+    for prod, nums in lines:
+        ops = list(product(operands, repeat=len(nums) - 1))
+
+        for operator_set in ops:
+            res = nums[0]
+            for i in range(len(operator_set)):
+                if operator_set[i] == "||":
+                    res = int(f"{str(res)}{str(nums[i+1])}")
+                if operator_set[i] == "+":
+                    res += nums[i + 1]
+                if operator_set[i] == "*":
+                    res *= nums[i + 1]
+            if prod == res:
+                calibration_result += res
+                print(f"FOUND correct for: {prod}, {nums}\n{calibration_result}")
+                break
+    return calibration_result
 
 
 def problem1() -> int:
@@ -147,5 +155,5 @@ def main(problem_part: Literal[1, 2]):
 
 if __name__ == "__main__":
     logger.info("start")
-    main(1)
-    # main(2)
+    # main(1)
+    main(2)
