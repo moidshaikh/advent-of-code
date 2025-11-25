@@ -10,10 +10,10 @@ def main(year: int, problem_number: int, problem_part: int):
     setup_logging()
 
     # Load the appropriate solution module based on the year and problem number
-    problem_module = importlib.import_module(f"solutions.{year}.dec{problem_number:02d}")
+    problem_module = importlib.import_module(f"solutions.{year}.day{problem_number:02d}")
 
     # Prepare the input file path
-    inputfile = os.path.join("inputs", str(year), f"dec{problem_number:02d}.in")
+    inputfile = os.path.join("inputs", str(year), f"day{problem_number:02d}.in")
     data = read_input(inputfile)
 
     # Execute the appropriate solution based on the problem part
