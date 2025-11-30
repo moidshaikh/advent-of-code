@@ -37,12 +37,17 @@ python main.py <year> <problem_number> <problem_part>
 - `<problem_part>`: The part of the problem to solve (either `1` or `2`).
 
 ### Example Commands
+✔ Normal run
+python main.py 2015 3 1
 
-Run the solution for Day 1, Part 1 of 2021:
-python main.py 2021 1 1
+✔ Run tests for that day
+python main.py 2015 3 1 --test
 
-Run the solution for Day 2, Part 2 of 2022:
-python main.py 2022 2 2
+✔ Measure time
+python main.py 2015 3 1 --time
+
+✔ Scalability
+python main.py 2015 3 1 --scale
 
 ## Features
 

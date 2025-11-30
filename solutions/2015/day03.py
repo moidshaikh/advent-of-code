@@ -1,5 +1,8 @@
-# A opening parenthesis, (, means he should go up one floor,
-# a closing parenthesis, ), means he should go down one floor.
+import os
+import sys
+
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.insert(0, project_root)
 
 
 def parse(raw_data: str) -> str:
