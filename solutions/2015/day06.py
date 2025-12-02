@@ -6,6 +6,11 @@ sys.path.insert(0, project_root)
 
 
 def parse(raw_data: str) -> str:
+    data = raw_data.split("\n")
+    for s in data:
+        ...
+        #  list(map(int,re.findall(r'\b\d{3}\b', c[0]))
+
     return raw_data
 
 

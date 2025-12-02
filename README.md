@@ -65,3 +65,8 @@ Feel free to contribute to the solutions or improvements to the utilities in `co
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 
+## iPython:
+Using below 2 commands will reload the functions before execution
+In [1]: %load_ext autoreload
+
+In [2]: %autoreload 2
