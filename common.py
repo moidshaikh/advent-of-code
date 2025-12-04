@@ -1,11 +1,33 @@
 import logging
+import os
 import time
 
 
 def setup_logging():
-    logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    # Create logs directory if it doesn't exist
+    os.makedirs("logs", exist_ok=True)
+    # Create a logger
+    logger = logging.getLogger("common_logger")
+    logger.setLevel(logging.INFO)
+    # Create console handler
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
+    # Create file handler
+    fh = logging.FileHandler("logs/application.log")
+    fh.setLevel(logging.INFO)
+    # Create a formatter
+    formatter = logging.Formatter(
+        "%(asctime)s - %(levelname)s - "
+        "File: %(filename)s - Function: %(funcName)s - Line: %(lineno)d - "
+        "Message: %(message)s"
     )
+    # Add formatter to handlers
+    ch.setFormatter(formatter)
+    fh.setFormatter(formatter)
+    # Add the handlers to the logger
+    logger.addHandler(ch)
+    logger.addHandler(fh)
+    return logger
 
 
 def read_input(path):

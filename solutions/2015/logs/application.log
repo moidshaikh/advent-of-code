@@ -1,0 +1,2 @@
+2025-12-03 02:06:03,351 - INFO - File: day07.py - Function: parse_instructions - Line: 2 - Message: <class 'str'>, 1
+2025-12-03 02:06:36,894 - INFO - File: day07.py - Function: parse_instructions - Line: 2 - Message: <class 'list'>, 123 -> x
