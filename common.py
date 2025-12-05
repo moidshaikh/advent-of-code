@@ -2,42 +2,43 @@ import logging
 import os
 import time
 from itertools import chain
-from typing import Any, List
+from typing import Any, Callable, List, Tuple
 
 
-def setup_logging(level=logging.INFO):
-    # Create logs directory if it doesn't exist
+def setup_logging(level: int = logging.INFO) -> logging.Logger:
     os.makedirs("logs", exist_ok=True)
-    # Create a logger
     logger = logging.getLogger("common_logger")
     logger.setLevel(level)
-    # Create console handler
+
     ch = logging.StreamHandler()
     ch.setLevel(level)
-    # Create file handler
+
     fh = logging.FileHandler("logs/application.log")
     fh.setLevel(level)
-    # Create a formatter
+
     formatter = logging.Formatter(
         "%(asctime)s - %(levelname)s - "
         "File: %(filename)s - Function: %(funcName)s - Line: %(lineno)d - "
         "Message: %(message)s"
     )
-    # Add formatter to handlers
+
     ch.setFormatter(formatter)
     fh.setFormatter(formatter)
-    # Add the handlers to the logger
+
     logger.addHandler(ch)
     logger.addHandler(fh)
+
     return logger
 
 
-def read_input(path):
-    with open(path) as f:
+def read_input(path: str) -> str:
+    """Reads content from a specified file."""
+    with open(path, "r") as f:
         return f.read()
 
 
-def run_tests(problem):
+def run_tests(problem: Any) -> None:
+    """Runs tests defined in the problem object and asserts expected outcomes."""
     if not hasattr(problem, "tests"):
         print("No tests defined.")
         return
@@ -54,13 +55,17 @@ def run_tests(problem):
     print("All tests passed!")
 
 
-def measure_performance(fn, data):
+def measure_performance(fn: Callable[[Any], Any], data: Any) -> Tuple[Any, float]:
+    """Measures the execution time of a function."""
     start = time.perf_counter()
     result = fn(data)
     return result, time.perf_counter() - start
 
 
-def measure_scalability(fn, datasets):
+def measure_scalability(
+    fn: Callable[[Any], Any], datasets: List[Tuple[int, Any]]
+) -> List[Tuple[int, float]]:
+    """Measures the scalability of a function using given datasets."""
     out = []
     for size, data in datasets:
         _, t = measure_performance(fn, data)

@@ -2,6 +2,8 @@ import logging
 import os
 import sys
 
+import pytest
+
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
 from common import flatten, setup_logging
@@ -62,11 +64,7 @@ def solution2(data: tuple[list[str], list[int]]) -> int:
     return total_fresh_ids
 
 
-def test_solutions():
-    # Tests for solution1
-    test_cases_solution1 = [
-        (
-            """3-5
+test_data: str = """3-5
 10-14
 16-20
 12-18
@@ -76,41 +74,21 @@ def test_solutions():
 8
 11
 17
-32""",
-            3,
-        ),
-    ]
+32"""
 
-    for i, (input_data, expected) in enumerate(test_cases_solution1):
-        result = solution1(parse(input_data))
-        assert (
-            result == expected
-        ), f"Test case {i+1} failed: expected {expected}, got {result}"
 
-    print("All tests for solution1 passed!")
+@pytest.fixture
+def input_data() -> str:
+    return test_data
 
-    # Tests for solution2
-    test_cases_solution2 = [
-        (
-            """3-5
-10-14
-16-20
-12-18
 
-1
-5
-8
-11
-17
-32""",
-            14,
-        ),
-    ]
-
-    for i, (input_data, expected) in enumerate(test_cases_solution2):
-        result = solution2(parse(input_data))
-        assert (
-            result == expected
-        ), f"Test case {i+1} failed: expected {expected}, got {result}"
-
-    print("All tests for solution2 passed!")
+@pytest.mark.parametrize(
+    "expected, solution",
+    [
+        (3, solution1),
+        (14, solution2),
+    ],
+)
+def test_solutions(input_data, expected, solution):
+    result = solution(parse(input_data))
+    assert result == expected, f"Expected {expected}, got {result}"

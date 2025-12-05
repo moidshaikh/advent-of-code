@@ -2,6 +2,8 @@ import logging
 import os
 import sys
 
+import pytest
+
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
 from common import setup_logging
@@ -22,29 +24,23 @@ def solution2(data: str) -> int:
     return 0
 
 
-def test_solutions():
-    # Tests for solution1
-    test_cases_solution1 = [
-        ("", 0),
-    ]
+test_data: str = """1
+2
+3"""
 
-    for i, (input_data, expected) in enumerate(test_cases_solution1):
-        result = solution1(input_data)
-        assert (
-            result == expected
-        ), f"Test case {i+1} failed: expected {expected}, got {result}"
 
-    print("All tests for solution1 passed!")
+@pytest.fixture
+def input_data() -> str:
+    return test_data
 
-    # Tests for solution2
-    test_cases_solution2 = [
-        ("", 0),
-    ]
 
-    for i, (input_data, expected) in enumerate(test_cases_solution2):
-        result = solution2(input_data)
-        assert (
-            result == expected
-        ), f"Test case {i+1} failed: expected {expected}, got {result}"
-
-    print("All tests for solution2 passed!")
+@pytest.mark.parametrize(
+    "expected, solution",
+    [
+        (0, solution1),
+        (0, solution2),
+    ],
+)
+def test_solutions(input_data, expected, solution):
+    result = solution(parse(input_data))
+    assert result == expected, f"Expected {expected}, got {result}"
