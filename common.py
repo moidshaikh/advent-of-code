@@ -1,6 +1,8 @@
 import logging
 import os
 import time
+from itertools import chain
+from typing import Any, List
 
 
 def setup_logging(level=logging.INFO):
@@ -64,3 +66,25 @@ def measure_scalability(fn, datasets):
         _, t = measure_performance(fn, data)
         out.append((size, t))
     return out
+
+
+def flatten(nested_list: List[List[Any]]) -> List[Any]:
+    """
+    Flatten a nested list of lists into a single list.
+
+    Parameters:
+    nested_list (List[List[Any]]): A list containing sublists to be flattened.
+
+    Returns:
+    List[Any]: A flat list containing all elements from the nested list.
+
+    Raises:
+    TypeError: If the input is not a list of lists.
+    """
+
+    if not isinstance(nested_list, list) or any(
+        not isinstance(sublist, list) for sublist in nested_list
+    ):
+        raise TypeError("Input must be a list of lists.")
+
+    return list(chain.from_iterable(nested_list))

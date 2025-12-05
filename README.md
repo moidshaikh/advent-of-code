@@ -49,40 +49,31 @@ python main.py 2015 3 1 --time
 ✔ Scalability
 python main.py 2015 3 1 --scale
 
-
 ### Sample Commands for Makefile
 
-1. **Create Solution Structure:**  
-   `make create YEAR=2024 DAY=05`  
-   Creates the necessary directories and files for the specified year and day.
+✔ **Create solution folder/files:**  
+`make create YEAR=2025 DAY=03`  
 
-2. **Run Solution:**  
-   `make run YEAR=2024 DAY=05 PART=1`  
-   Executes the solution for the specified year, day, and part.
+✔ **Normal run:**  
+`make run YEAR=2025 DAY=03 PART=1`  
 
-3. **Run Unit Tests:**  
-   `make test`  
-   Executes unit tests for the specified solution file using pytest.
+✔ **Run tests for that day:**  
+`make test YEAR=2025 DAY=03`  
 
-4. **Run with Timing Enabled:**  
-   `make time YEAR=2015 DAY=03 PART=2`  
-   Runs the solution with timing information to measure execution time.
+✔ **Measure time:**  
+`make time YEAR=2025 DAY=03 PART=1`  
 
-5. **Run Scalability Benchmark:**  
-   `make scale YEAR=2020 DAY=10 PART=1`  
-   Tests the scalability of the solution for specified parameters.
+✔ **Scalability test:**  
+- need to write inputs for scalability performance
+`make scale YEAR=2023 DAY=10 PART=1`  
 
-6. **Download Input File:**  
-   `make download YEAR=2022 DAY=07`  
-   Downloads the problem input for a specific year and day using your session token.
+✔ **Download input file:**  
+[TODO]
+`make download YEAR=2022 DAY=07`  
 
-7. **Clean Temporary Files:**  
-   `make clean`  
-   Removes Python bytecode files and cache directories to clean up the project.
+✔ **Clean temporary files:**  
+`make clean`  
 
-8. **Show Help Information:**  
-   `make help`  
-   Displays usage instructions and default settings for the Makefile commands.
 
 ## Features
 

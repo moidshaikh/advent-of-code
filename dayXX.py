@@ -1,8 +1,12 @@
+import logging
 import os
 import sys
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, project_root)
+from common import setup_logging
+
+logger = setup_logging(logging.INFO)
 
 
 def parse(raw_data: str) -> str:
