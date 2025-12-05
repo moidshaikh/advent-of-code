@@ -3,18 +3,18 @@ import os
 import time
 
 
-def setup_logging():
+def setup_logging(level=logging.INFO):
     # Create logs directory if it doesn't exist
     os.makedirs("logs", exist_ok=True)
     # Create a logger
     logger = logging.getLogger("common_logger")
-    logger.setLevel(logging.INFO)
+    logger.setLevel(level)
     # Create console handler
     ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
+    ch.setLevel(level)
     # Create file handler
     fh = logging.FileHandler("logs/application.log")
-    fh.setLevel(logging.INFO)
+    fh.setLevel(level)
     # Create a formatter
     formatter = logging.Formatter(
         "%(asctime)s - %(levelname)s - "
