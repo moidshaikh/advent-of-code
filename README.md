@@ -3,7 +3,7 @@
 This repository contains solutions for the Advent of Code challenges, organized by year and day. The project structure promotes code reuse while keeping the challenges manageable.
 
 ## Directory Structure
-
+```
 advent_of_code/
 ├── inputs/
 │   ├── 2021/
@@ -25,7 +25,7 @@ advent_of_code/
 │   │   └── ...              # Additional solutions for 2022
 ├── common.py                # Common utility functions for all years
 └── main.py                  # Centralized entry point for all years
-
+```
 ## Usage
 
 To run a specific problem for a given year, use the following command in your terminal:
@@ -49,12 +49,48 @@ python main.py 2015 3 1 --time
 ✔ Scalability
 python main.py 2015 3 1 --scale
 
+
+### Sample Commands for Makefile
+
+1. **Create Solution Structure:**  
+   `make create YEAR=2024 DAY=05`  
+   Creates the necessary directories and files for the specified year and day.
+
+2. **Run Solution:**  
+   `make run YEAR=2024 DAY=05 PART=1`  
+   Executes the solution for the specified year, day, and part.
+
+3. **Run Unit Tests:**  
+   `make test`  
+   Executes unit tests for the specified solution file using pytest.
+
+4. **Run with Timing Enabled:**  
+   `make time YEAR=2015 DAY=03 PART=2`  
+   Runs the solution with timing information to measure execution time.
+
+5. **Run Scalability Benchmark:**  
+   `make scale YEAR=2020 DAY=10 PART=1`  
+   Tests the scalability of the solution for specified parameters.
+
+6. **Download Input File:**  
+   `make download YEAR=2022 DAY=07`  
+   Downloads the problem input for a specific year and day using your session token.
+
+7. **Clean Temporary Files:**  
+   `make clean`  
+   Removes Python bytecode files and cache directories to clean up the project.
+
+8. **Show Help Information:**  
+   `make help`  
+   Displays usage instructions and default settings for the Makefile commands.
+
 ## Features
 
 - **Modular Solutions**: Each year's problem solutions are encapsulated in individual files located in the `solutions/` directory for that year.
 - **Common Utilities**: Shared functions and helpers are maintained in `common.py`, promoting code reuse across different years.
 - **Input Handling**: Inputs are read from the `inputs/` directory corresponding to each year, ensuring easy management of data files.
 - **Logging**: Comprehensive logging for both successes and errors facilitates debugging and tracking progress.
+- **Makefile**: Added Makefile and commands for basic usage.
 
 ## Contributions
 
